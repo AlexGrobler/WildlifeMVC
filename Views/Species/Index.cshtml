@@ -1,0 +1,64 @@
+﻿@model IEnumerable<WildlifeMVC.Models.Species>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EnglishName) 
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LatinName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShortDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LongDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageURL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VideoURL)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td style="padding-right: 20px;">
+            @Html.DisplayFor(modelItem => item.EnglishName)
+        </td>
+        <td style="padding-right: 20px;">
+            @Html.DisplayFor(modelItem => item.LatinName)
+        </td>
+        <td style="padding-right: 20px;">
+            @Html.DisplayFor(modelItem => item.ShortDescription)
+        </td>
+        <td style="padding-right: 20px;">
+            @Html.DisplayFor(modelItem => item.LongDescription)
+        </td>
+        <td style="padding-right: 20px;">
+            @Html.DisplayFor(modelItem => item.ImageURL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VideoURL) 
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
