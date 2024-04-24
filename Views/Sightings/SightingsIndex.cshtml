@@ -1,13 +1,15 @@
 ﻿@model IEnumerable<WildlifeMVC.Models.SightingAPIModel>
 
 @{
-    ViewBag.Title = "Sightings";
+    ViewBag.Title = "SightingsIndex";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Description = "This Is The Sightings Page Description";
 }
 
 <h2>Sightings</h2>
-
+<p>
+    @Html.ActionLink("Record New Sighting", "CreateSighting")
+</p>
 <table class="table">
     <tr>
         <th>

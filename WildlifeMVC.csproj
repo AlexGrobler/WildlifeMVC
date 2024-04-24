@@ -183,7 +183,8 @@
     <Content Include="Views\Species\Details.cshtml" />
     <Content Include="Views\Species\Edit.cshtml" />
     <Content Include="Views\Species\Index.cshtml" />
-    <Content Include="Views\Sightings\Sightings.cshtml" />
+    <Content Include="Views\Sightings\SightingsIndex.cshtml" />
+    <Content Include="Views\Sightings\CreateSighting.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
