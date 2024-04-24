@@ -139,6 +139,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SightingsController.cs" />
     <Compile Include="Controllers\SpeciesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -146,7 +147,7 @@
     <Compile Include="Models\Species.cs">
       <DependentUpon>WildlifeModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\WildlifeAPIModel.cs" />
+    <Compile Include="Models\SightingAPIModel.cs" />
     <Compile Include="Models\WildlifeModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -182,6 +183,7 @@
     <Content Include="Views\Species\Details.cshtml" />
     <Content Include="Views\Species\Edit.cshtml" />
     <Content Include="Views\Species\Index.cshtml" />
+    <Content Include="Views\Sightings\Sightings.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

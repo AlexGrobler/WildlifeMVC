@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WildlifeMVC.Models
 {
-    public class WildlifeAPIModel
+    public class SightingAPIModel
     {
         public int ID { get; set; }
         public int SpeciesID { get; set; }

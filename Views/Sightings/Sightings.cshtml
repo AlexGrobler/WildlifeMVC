@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WildlifeMVC.Models.SightingAPIModel>
+
+@{
+    ViewBag.Title = "Sightings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Description = "This Is The Sightings Page Description";
+}
+
+<h2>Sightings</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpeciesID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.XCoordinate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YCoordinate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeStamp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Locaton)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.County)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="padding-right: 20px;">
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td style="padding-right: 20px;">
+                @Html.DisplayFor(modelItem => item.SpeciesID)
+            </td>
+            <td style="padding-right: 20px;">
+                @Html.DisplayFor(modelItem => item.XCoordinate)
+            </td>
+            <td style="padding-right: 20px;">
+                @Html.DisplayFor(modelItem => item.YCoordinate)
+            </td>
+            <td style="padding-right: 20px;">
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td style="padding-right: 20px;">
+                @Html.DisplayFor(modelItem => item.Locaton)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.County)
+            </td>
+@*            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>*@
+        </tr>
+    }
+
+</table>
