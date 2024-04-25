@@ -186,6 +186,8 @@
     <Content Include="Views\Sightings\SightingsIndex.cshtml" />
     <Content Include="Views\Sightings\CreateSighting.cshtml" />
     <Content Include="Views\Sightings\UpdateSighting.cshtml" />
+    <Content Include="Views\Sightings\SightingDetails.cshtml" />
+    <Content Include="Views\Sightings\DeleteSighting.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
