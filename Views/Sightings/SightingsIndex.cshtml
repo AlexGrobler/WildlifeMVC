@@ -63,11 +63,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.County)
             </td>
-@*            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-            </td>*@
+            <td>
+                @Html.ActionLink("Edit", "UpdateSighting", new { id = item.ID }) |
+@*                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+            </td>
         </tr>
     }
 

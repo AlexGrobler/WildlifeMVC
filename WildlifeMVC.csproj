@@ -185,6 +185,7 @@
     <Content Include="Views\Species\Index.cshtml" />
     <Content Include="Views\Sightings\SightingsIndex.cshtml" />
     <Content Include="Views\Sightings\CreateSighting.cshtml" />
+    <Content Include="Views\Sightings\UpdateSighting.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
