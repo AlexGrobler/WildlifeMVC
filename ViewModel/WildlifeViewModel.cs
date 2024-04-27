@@ -9,6 +9,7 @@ namespace WildlifeMVC.ViewModel
 {
     public class WildlifeViewModel
     {
+        public int ID { get; set; }
         public int SpeciesID { get; set; }
         public decimal XCoordinate { get; set; }
         public decimal YCoordinate { get; set; }
