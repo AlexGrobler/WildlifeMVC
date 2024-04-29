@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WildlifeMVC.Models.SightingAPIModel>
+﻿@model IEnumerable<WildlifeMVC.ViewModels.SightingDetailsViewModel>
 
 @{
     ViewBag.Title = "SightingsIndex";
@@ -12,11 +12,11 @@
 </p>
 <table class="table">
     <tr>
-        <th>
+@*        <th>
             @Html.DisplayNameFor(model => model.ID)
-        </th>
+        </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.SpeciesID)
+            @Html.DisplayNameFor(model => model.SpeciesName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.XCoordinate)
@@ -31,7 +31,7 @@
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Locaton)
+            @Html.DisplayNameFor(model => model.Location)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.County)
@@ -42,11 +42,11 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td style="padding-right: 20px;">
+      @*      <td style="padding-right: 20px;">
                 @Html.DisplayFor(modelItem => item.ID)
-            </td>
+            </td>*@
             <td style="padding-right: 20px;">
-                @Html.DisplayFor(modelItem => item.SpeciesID)
+                @Html.DisplayFor(modelItem => item.SpeciesName)
             </td>
             <td style="padding-right: 20px;">
                 @Html.DisplayFor(modelItem => item.XCoordinate)
@@ -61,7 +61,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td style="padding-right: 20px;">
-                @Html.DisplayFor(modelItem => item.Locaton)
+                @Html.DisplayFor(modelItem => item.Location)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.County)

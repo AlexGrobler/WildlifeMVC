@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using System.Xml.Linq;
 
-namespace WildlifeMVC.Models
+namespace WildlifeMVC.ViewModels
 {
-    public class SightingAPIModel
+    public class SightingViewModel
     {
         public int ID { get; set; }
+        [Display(Name = "Species")]
         public int SpeciesID { get; set; }
+        public IEnumerable<SelectListItem> SpeciesList { get; set; }
         public decimal XCoordinate { get; set; }
         public decimal YCoordinate { get; set; }
         [Display(Name = "Time Of Sighting")]

@@ -1,4 +1,4 @@
-﻿@model WildlifeMVC.Models.SightingAPIModel
+﻿@model WildlifeMVC.ViewModels.SightingDetailsViewModel
 
 @{
     ViewBag.Title = "DeleteSighting";
@@ -13,11 +13,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.SpeciesID)
+            @Html.DisplayNameFor(model => model.SpeciesName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SpeciesID)
+            @Html.DisplayFor(model => model.SpeciesName)
         </dd>
 
         <dt>
@@ -53,11 +53,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Locaton)
+            @Html.DisplayNameFor(model => model.Location)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Locaton)
+            @Html.DisplayFor(model => model.Location)
         </dd>
 
         <dt>

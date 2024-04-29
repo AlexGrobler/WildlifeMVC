@@ -5,12 +5,14 @@ using System.Linq;
 using System.Web;
 using System.Xml.Linq;
 
-namespace WildlifeMVC.Models
+namespace WildlifeMVC.ViewModels
 {
-    public class SightingAPIModel
+    public class SightingDetailsViewModel
     {
         public int ID { get; set; }
+        [Display(Name = "Species Name")]
         public int SpeciesID { get; set; }
+        public string SpeciesName { get; set; }
         public decimal XCoordinate { get; set; }
         public decimal YCoordinate { get; set; }
         [Display(Name = "Time Of Sighting")]
