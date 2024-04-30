@@ -51,7 +51,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", maxlength = "2500"} })
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", maxlength = "2500" } })
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -71,7 +71,6 @@
                 @Html.ValidationMessageFor(model => model.County, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -80,6 +79,37 @@
     </div>
 }
 
+<div id="map" style="height: 400px; width: 400px;"></div>
+
+
 <div>
     @Html.ActionLink("Back to Sightings", "SightingsIndex")
 </div>
+
+<script>
+    var map = L.map('map').setView([54.27162, -8.47406], 13); // Set initial position and zoom level
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var marker;
+
+    map.on('click', function (e) {
+        var lat = e.latlng.lat;
+        var lng = e.latlng.lng;
+
+        // Populate the coordinate fields
+        document.getElementById('XCoordinate').value = lat.toFixed(5); // Fixes the precision to 5 decimal places
+        document.getElementById('YCoordinate').value = lng.toFixed(5);
+
+        if (marker) {
+            // Move the existing marker to the new location
+            marker.setLatLng(e.latlng);
+        } else {
+            // Create a new marker and add it to the map
+            marker = L.marker(e.latlng).addTo(map);
+        }
+    });
+</script>

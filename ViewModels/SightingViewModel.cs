@@ -18,7 +18,7 @@ namespace WildlifeMVC.ViewModels
         public decimal YCoordinate { get; set; }
         [Display(Name = "Time Of Sighting")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
-        public System.DateTime TimeStamp { get; set; }
+        public System.DateTime TimeStamp { get; set; } = DateTime.Today;
         public string Description { get; set; }
         public string Location { get; set; }
         public string County { get; set; }
