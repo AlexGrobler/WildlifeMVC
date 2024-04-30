@@ -20,7 +20,7 @@
      <div class="form-group">
             @Html.LabelFor(model => model.EnglishName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.EnglishName, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = "255", pattern = "[a-zA-Z]*", title = "Only letters are allowed." } })
+                @Html.EditorFor(model => model.EnglishName, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = "255", pattern = "[a-zA-Z ]*", title = "Only letters are allowed." } })
                 @Html.ValidationMessageFor(model => model.EnglishName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -28,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.LatinName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.LatinName, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = "255", pattern = "[a-zA-Z]*", title = "Only letters are allowed." } })
+                @Html.EditorFor(model => model.LatinName, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = "255", pattern = "[a-zA-Z ]*", title = "Only letters are allowed." } })
                 @Html.ValidationMessageFor(model => model.LatinName, "", new { @class = "text-danger" })
             </div>
         </div>

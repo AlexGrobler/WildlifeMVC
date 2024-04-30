@@ -55,9 +55,9 @@
             @Html.DisplayFor(modelItem => item.VideoURL) 
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Edit", "Edit", new { name = HttpUtility.UrlEncode(item.EnglishName), id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { name=HttpUtility.UrlEncode(item.EnglishName), id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new {  name=HttpUtility.UrlEncode(item.EnglishName), id=item.ID })
         </td>
     </tr>
 }

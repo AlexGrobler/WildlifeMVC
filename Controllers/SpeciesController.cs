@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using WildlifeMVC.Models;
@@ -14,20 +15,23 @@ namespace WildlifeMVC.Controllers
     {
         private wildlife_DBEntities db = new wildlife_DBEntities();
 
-        // GET: Species
-        public ActionResult Index()
+        [HttpGet]
+        [Route("Species")]
+        public async Task<ActionResult> Index()
         {
-            return View(db.Species.ToList());
+            List<Species> speciesList = await db.Species.ToListAsync();
+            return View(speciesList);
         }
 
-        // GET: Species/Details/5
-        public ActionResult Details(int? id)
+        [HttpGet]
+        [Route("Species/Info/{name}/{id}")]
+        public async Task<ActionResult> Details(string name, int? id)
         {
-            if (id == null)
+            if (name == null || id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Species species = db.Species.Find(id);
+            Species species = await db.Species.FindAsync(id);
             if (species == null)
             {
                 return HttpNotFound();
@@ -35,37 +39,36 @@ namespace WildlifeMVC.Controllers
             return View(species);
         }
 
-        // GET: Species/Create
+        [Route("Species/AddSpecies")]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Species/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Route("Species/AddSpecies")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,EnglishName,LatinName,ShortDescription,LongDescription,ImageURL,VideoURL")] Species species)
+        public async Task<ActionResult> Create([Bind(Include = "ID,EnglishName,LatinName,ShortDescription,LongDescription,ImageURL,VideoURL")] Species species)
         {
             if (ModelState.IsValid)
             {
                 db.Species.Add(species);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
             return View(species);
         }
 
-        // GET: Species/Edit/5
-        public ActionResult Edit(int? id)
+        [HttpGet]
+        [Route("Species/EditSpecies/{name}/{id}")]
+        public async Task<ActionResult> Edit(string name, int? id)
         {
-            if (id == null)
+            if (id == null || name == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Species species = db.Species.Find(id);
+            Species species = await db.Species.FindAsync(id);
             if (species == null)
             {
                 return HttpNotFound();
@@ -73,30 +76,29 @@ namespace WildlifeMVC.Controllers
             return View(species);
         }
 
-        // POST: Species/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Route("Species/EditSpecies/{name}/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,EnglishName,LatinName,ShortDescription,LongDescription,ImageURL,VideoURL")] Species species)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,EnglishName,LatinName,ShortDescription,LongDescription,ImageURL,VideoURL")] Species species)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(species).State = EntityState.Modified;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(species);
         }
 
-        // GET: Species/Delete/5
-        public ActionResult Delete(int? id)
+        [HttpGet]
+        [Route("Species/DeleteSpecies/{name}/{id}")]
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Species species = db.Species.Find(id);
+            Species species = await db.Species.FindAsync(id);
             if (species == null)
             {
                 return HttpNotFound();
@@ -104,12 +106,12 @@ namespace WildlifeMVC.Controllers
             return View(species);
         }
 
-        // POST: Species/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Route("Species/DeleteSpecies/{name}/{id}")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Species species = db.Species.Find(id);
+            Species species = await db.Species.FindAsync(id);
             db.Species.Remove(species);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -98,5 +98,11 @@
             "<b>Date:</b> " + date + "<br>" +
             "<b>Description:</b> " + sighting.Description;
         marker.bindPopup(popupContent);
+        marker.on('mouseover', function (e) {
+            this.openPopup();
+        });
+        marker.on('mouseout', function (e) {
+            this.closePopup();
+        });
     });
 </script>

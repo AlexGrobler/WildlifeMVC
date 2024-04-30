@@ -72,11 +72,10 @@ namespace WildlifeMVC.Controllers
             }
         }
 
-
         [HttpGet]
+        [Route("Sightings/SightingsList")]
         public async Task<ActionResult> SightingsIndex()
         {
-        
             using (HttpClient httpClient = new HttpClient())
             {
                 IEnumerable<SightingAPIModel> apiData = new List<SightingAPIModel>();
@@ -118,6 +117,8 @@ namespace WildlifeMVC.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("Sightings/SightingInfo/{id}")]
         public async Task<ActionResult> SightingDetails(int? id)
         {
             if (id == null)
@@ -145,6 +146,8 @@ namespace WildlifeMVC.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
+        [Route("Sightings/RecordSighting")]
         public ActionResult CreateSighting()
         {
             using (var db = new wildlife_DBEntities())
@@ -162,6 +165,7 @@ namespace WildlifeMVC.Controllers
         }
 
         [HttpPost]
+        [Route("Sightings/RecordSighting")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateSighting(SightingViewModel sightingViewModel)
         {
@@ -197,6 +201,8 @@ namespace WildlifeMVC.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("Sightings/UpdateSighting/{id}")]
         public async Task<ActionResult> UpdateSighting(int? id)
         {
             if (id == null)
@@ -231,6 +237,7 @@ namespace WildlifeMVC.Controllers
         }
 
         [HttpPost]
+        [Route("Sightings/UpdateSighting/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> UpdateSighting([Bind(Include = "ID,SpeciesID,XCoordinate,YCoordinate,TimeStamp,Description,Location,County")] SightingViewModel sightingViewModel)
         {
@@ -276,6 +283,8 @@ namespace WildlifeMVC.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("Sightings/RemoveSighting/{id}")]
         public async Task<ActionResult> DeleteSighting(int? id)
         {
             if (id == null)
@@ -303,6 +312,7 @@ namespace WildlifeMVC.Controllers
         }
 
         [HttpPost, ActionName("DeleteSighting")]
+        [Route("Sightings/RemoveSighting/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteSighting(int id) 
         {
