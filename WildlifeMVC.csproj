@@ -134,6 +134,13 @@
       <DependentUpon>WildlifeModel.edmx</DependentUpon>
       <LastGenOutput>WildlifeModel.cs</LastGenOutput>
     </Content>
+    <None Include="Scripts\jquery-3.7.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.7.1.js" />
+    <Content Include="Scripts\jquery-3.7.1.min.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.7.1.min.map" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

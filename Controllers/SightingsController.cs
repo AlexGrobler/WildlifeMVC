@@ -133,6 +133,7 @@ namespace WildlifeMVC.Controllers
             string speciesName = await GetSpeciesNameByID(sighting.SpeciesID);
             SightingDetailsViewModel viewModel = new SightingDetailsViewModel
             {
+                ID = sighting.ID,
                 SpeciesName = speciesName,
                 XCoordinate = sighting.XCoordinate,
                 YCoordinate = sighting.YCoordinate,
