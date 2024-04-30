@@ -81,13 +81,12 @@
 
 <div id="map" style="height: 400px; width: 400px;"></div>
 
-
 <div>
     @Html.ActionLink("Back to Sightings", "SightingsIndex")
 </div>
 
 <script>
-    var map = L.map('map').setView([54.27162, -8.47406], 13); // Set initial position and zoom level
+    var map = L.map('map').setView([54.27162, -8.47406], 7); 
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -101,7 +100,7 @@
         var lng = e.latlng.lng;
 
         // Populate the coordinate fields
-        document.getElementById('XCoordinate').value = lat.toFixed(5); // Fixes the precision to 5 decimal places
+        document.getElementById('XCoordinate').value = lat.toFixed(5); 
         document.getElementById('YCoordinate').value = lng.toFixed(5);
 
         if (marker) {

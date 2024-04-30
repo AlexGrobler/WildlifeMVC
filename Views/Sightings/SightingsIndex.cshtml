@@ -12,9 +12,9 @@
 </p>
 <table class="table">
     <tr>
-@*        <th>
-            @Html.DisplayNameFor(model => model.ID)
-        </th>*@
+        @*        <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.SpeciesName)
         </th>
@@ -42,9 +42,9 @@
     @foreach (var item in Model)
     {
         <tr>
-      @*      <td style="padding-right: 20px;">
-                @Html.DisplayFor(modelItem => item.ID)
-            </td>*@
+            @*      <td style="padding-right: 20px;">
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>*@
             <td style="padding-right: 20px;">
                 @Html.DisplayFor(modelItem => item.SpeciesName)
             </td>
@@ -73,5 +73,30 @@
             </td>
         </tr>
     }
-
 </table>
+
+<div id="map" style="height: 400px; width: 400px;"></div>
+
+<script>
+    var map = L.map('map').setView([53.29, -7.77], 6);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var sightings = @Html.Raw(Json.Encode(Model));
+    sightings.forEach(function(sighting) {
+        var lat = parseFloat(sighting.XCoordinate);
+        var lng = parseFloat(sighting.YCoordinate);
+        var marker = L.marker([lat, lng]).addTo(map);
+        var timestamp = parseInt(sighting.TimeStamp.substr(6)); 
+        var date = (new Date(timestamp)).toDateString();
+        var popupContent =
+            "<b>Species:</b> " + sighting.SpeciesName + "<br>" +
+            "<b>Location:</b> " + sighting.Location + "<br>" +
+            "<b>Date:</b> " + date + "<br>" +
+            "<b>Description:</b> " + sighting.Description;
+        marker.bindPopup(popupContent);
+    });
+</script>

@@ -72,3 +72,19 @@
     @Html.ActionLink("Edit", "UpdateSighting", new { id = Model.ID }) |
     @Html.ActionLink("Back to Sightings", "SightingsIndex")
 </p>
+
+<div id="map" style="height: 400px; width: 400px;"></div>
+
+<script>
+    var currentLat = parseFloat(@Html.Raw(Json.Encode(Model.XCoordinate)));
+    var currentLng = parseFloat(@Html.Raw(Json.Encode(Model.YCoordinate)));
+
+    var map = L.map('map').setView([currentLat, currentLng], 7);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var marker = L.marker([currentLat, currentLng]).addTo(map);
+</script>
