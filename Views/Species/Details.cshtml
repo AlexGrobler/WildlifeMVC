@@ -42,24 +42,14 @@
         <dd>
             @Html.DisplayFor(model => model.LongDescription)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ImageURL)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ImageURL)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.VideoURL)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.VideoURL)
-        </dd>
-
     </dl>
+    <div>
+        <img src="@Url.Content(Model.ImageURL ?? "~/Content/fox.jpg")" alt="Image">
+    </div>
+    <div>
+        <iframe width="2543" height="1118" src="@Model.VideoURL" title="The Red Fox - The British Mammal Guide" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    
+    </div>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { name = HttpUtility.UrlEncode(Model.EnglishName), id = Model.ID }) |

@@ -22,7 +22,7 @@
         <th>
             @Html.DisplayNameFor(model => model.ShortDescription)
         </th>
-        <th>
+@*        <th>
             @Html.DisplayNameFor(model => model.LongDescription)
         </th>
         <th>
@@ -30,8 +30,7 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.VideoURL)
-        </th>
-        <th></th>
+        </th>*@
     </tr>
 
 @foreach (var item in Model) {
@@ -45,7 +44,7 @@
         <td style="padding-right: 20px;">
             @Html.DisplayFor(modelItem => item.ShortDescription)
         </td>
-        <td style="padding-right: 20px;">
+@*        <td style="padding-right: 20px;">
             @Html.DisplayFor(modelItem => item.LongDescription)
         </td>
         <td style="padding-right: 20px;">
@@ -53,7 +52,7 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.VideoURL) 
-        </td>
+        </td>*@
         <td>
             @Html.ActionLink("Edit", "Edit", new { name = HttpUtility.UrlEncode(item.EnglishName), id = item.ID }) |
             @Html.ActionLink("Details", "Details", new { name=HttpUtility.UrlEncode(item.EnglishName), id=item.ID }) |

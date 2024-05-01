@@ -123,6 +123,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\eagle.jpg" />
+    <Content Include="Content\fox.jpg" />
+    <Content Include="Content\hare.jpg" />
+    <Content Include="Content\lizard.jpg" />
+    <Content Include="Content\otter.jpg" />
+    <Content Include="Content\puffin.jpg" />
+    <Content Include="Content\shark.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Models\WildlifeModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

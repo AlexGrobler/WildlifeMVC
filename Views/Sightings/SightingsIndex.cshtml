@@ -90,7 +90,7 @@
         var lat = parseFloat(sighting.XCoordinate);
         var lng = parseFloat(sighting.YCoordinate);
         var marker = L.marker([lat, lng]).addTo(map);
-        var timestamp = parseInt(sighting.TimeStamp.substr(6)); 
+        var timestamp = parseInt(sighting.TimeStamp.substr(6));
         var date = (new Date(timestamp)).toDateString();
         var popupContent =
             "<b>Species:</b> " + sighting.SpeciesName + "<br>" +
@@ -103,6 +103,9 @@
         });
         marker.on('mouseout', function (e) {
             this.closePopup();
+        });
+        marker.on('click', function (e) {
+            window.location.href = 'SightingInfo/' + sighting.ID;
         });
     });
 </script>
