@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Header = "Edit Species Entry";
+    ViewBag.Description = "Edit the details for this entry";
 }
 
 
@@ -15,8 +17,7 @@
 
 
 <div class="container">
-    <h2>Edit</h2>
-
+    <hr />
     <div class="mb-3">
         @Html.LabelFor(model => model.EnglishName, htmlAttributes: new { @class = "form-label" })
         @Html.EditorFor(model => model.EnglishName, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = "255", pattern = "[a-zA-Z ]*", title = "Only letters are allowed." } })

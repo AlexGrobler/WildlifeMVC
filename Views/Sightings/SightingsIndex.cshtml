@@ -3,76 +3,67 @@
 @{
     ViewBag.Title = "SightingsIndex";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Description = "This Is The Sightings Page Description";
+    ViewBag.Description = "Here can be found a list of all sightings and an interactive map";
+    ViewBag.Header = "Wildlife Sightings";
 }
 
-<h2>Sightings</h2>
-<p>
-    @Html.ActionLink("Record New Sighting", "CreateSighting")
-</p>
-<table class="table">
-    <tr>
-        @*        <th>
-                @Html.DisplayNameFor(model => model.ID)
-            </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.SpeciesName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.XCoordinate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.YCoordinate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TimeStamp)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Location)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.County)
-        </th>
-        <th></th>
-    </tr>
+<a href="@Url.Action("CreateSighting")" class="btn btn-outline-secondary mb-3" style="font-weight: bold;">Record New Sighting</a>
+<div class="full-width-content" style="padding: 20px;">
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-hover table-light">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SpeciesName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TimeStamp)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Location)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.County)
+                    </th>
+                    <th></th>
+                </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td style="padding-right: 20px;">
-                @Html.DisplayFor(modelItem => item.SpeciesName)
-            </td>
-            <td style="padding-right: 20px;">
-                @Html.DisplayFor(modelItem => item.XCoordinate)
-            </td>
-            <td style="padding-right: 20px;">
-                @Html.DisplayFor(modelItem => item.YCoordinate)
-            </td>
-            <td style="padding-right: 20px;">
-                @Html.DisplayFor(modelItem => item.TimeStamp)
-            </td>
-            <td style="padding-right: 20px;">
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td style="padding-right: 20px;">
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.County)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "UpdateSighting", new { id = item.ID }) |
-                @Html.ActionLink("Details", "SightingDetails", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "DeleteSighting", new { id = item.ID })
-            </td>
-        </tr>
-    }
-</table>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="padding-right: 20px;">
+                            @Html.DisplayFor(modelItem => item.SpeciesName)
+                        </td>
+                        <td style="padding-right: 20px;">
+                            @Html.DisplayFor(modelItem => item.TimeStamp)
+                        </td>
+                        <td style="padding-right: 20px;">
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td style="padding-right: 20px;">
+                            @Html.DisplayFor(modelItem => item.Location)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.County)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "UpdateSighting", new { id = item.ID }) |
+                            @Html.ActionLink("Details", "SightingDetails", new { id = item.ID }) |
+                            @Html.ActionLink("Delete", "DeleteSighting", new { id = item.ID })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="col-md-6">
+            <div id="map" style="height: 600px;"></div>
+        </div>
+    </div>
+</div>
 
-<div id="map" style="height: 400px; width: 400px;"></div>
 
 <script>
     var map = L.map('map').setView([53.29, -7.77], 6);

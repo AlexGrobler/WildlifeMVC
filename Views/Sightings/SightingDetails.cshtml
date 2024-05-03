@@ -3,78 +3,83 @@
 @{
     ViewBag.Title = "SightingDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Header = "Sighting Details";
+    ViewBag.Description = "Detailed info about the sighting";
 }
 
-<h2>Sighting Details</h2>
 
-<div>
-    <h4>Sighting</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.SpeciesName)
-        </dt>
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.SpeciesName)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SpeciesName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.SpeciesName)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.XCoordinate)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.XCoordinate)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.XCoordinate)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.XCoordinate)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.YCoordinate)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.YCoordinate)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.YCoordinate)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.YCoordinate)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeStamp)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.TimeStamp)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TimeStamp)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.TimeStamp)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Location)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Location)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Location)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.County)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.County)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.County)
-        </dd>
-    </dl>
+                <dd>
+                    @Html.DisplayFor(model => model.County)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-6">
+            <div id="map" style="height: 500px;"></div>
+        </div>
+    </div>
 </div>
 <p>
     @Html.ActionLink("Edit", "UpdateSighting", new { id = Model.ID }) |
     @Html.ActionLink("Delete", "DeleteSighting", new { id = Model.ID }) |
     @Html.ActionLink("Back to Sightings", "SightingsIndex")
 </p>
-
-<div id="map" style="height: 400px; width: 400px;"></div>
 
 <script>
     var currentLat = parseFloat(@Html.Raw(Json.Encode(Model.XCoordinate)));

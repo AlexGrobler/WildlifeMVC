@@ -16,7 +16,7 @@ namespace WildlifeMVC.ViewModels
         public IEnumerable<SelectListItem> SpeciesList { get; set; }
         public decimal XCoordinate { get; set; }
         public decimal YCoordinate { get; set; }
-        [Display(Name = "Time Of Sighting")]
+        [Display(Name = "Date Of Sighting")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public System.DateTime TimeStamp { get; set; } = DateTime.Today;
         public string Description { get; set; }

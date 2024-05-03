@@ -7,45 +7,51 @@
     ViewBag.Description = "Information about the species";
 }
 
-<div class="container">
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.EnglishName)
-        </dt>
+<div class="container rounded" style="background-color: #f5fcff; padding: 20px;">
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.EnglishName)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.EnglishName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.EnglishName)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LatinName)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.LatinName)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.LatinName)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.LatinName)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ShortDescription)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ShortDescription)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ShortDescription)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.ShortDescription)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LongDescription)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.LongDescription)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.LongDescription)
-        </dd>
-    </dl>
-    <div style="max-width: 100%; height: auto; width: 800px">
-        <img class="img-fluid" src="@Url.Content(Model.ImageURL ?? "~/Content/fox.jpg")" alt="Image">
-    </div>
-    <div class="ratio ratio-16x9">
-        <iframe src="@Model.VideoURL" title="YouTube Video" allowfullscreen></iframe>
+                <dd>
+                    @Html.DisplayFor(model => model.LongDescription)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-6">
+            <div style="max-width: 100%; height: auto; width: 800px">
+                <img class="img-fluid rounded-top" src="@Url.Content(Model.ImageURL ?? "~/Content/fox.jpg")" alt="Image">
+            </div>
+            <div class="ratio ratio-16x9">
+                <iframe class="rounded-bottom" src="@Model.VideoURL" title="YouTube Video" allowfullscreen></iframe>
+            </div>
+        </div>
     </div>
     <p>
         @Html.ActionLink("Edit", "Edit", new { name = Model.EnglishName.Replace(" ", "-"), id = Model.ID }) |

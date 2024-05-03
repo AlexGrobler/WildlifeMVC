@@ -3,89 +3,73 @@
 @{
     ViewBag.Title = "UpdateSighting";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Header = "Edit Sighting";
+    ViewBag.Description = "Update the details for the sighting";
 }
-
-<h2>UpdateSighting</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ID)
 
-    <div class="form-horizontal">
-        <h4>Sighting</h4>
+    <div class="container">
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.SpeciesID, htmlAttributes: new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.SpeciesID, Model.SpeciesList, "Select a Species", new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessageFor(model => model.SpeciesID, "", new { @class = "form-text" })
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SpeciesID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SpeciesID, Model.SpeciesList, "Select a Species", new { @class = "form-control", required = "required" })
-                @Html.ValidationMessageFor(model => model.SpeciesID, "", new { @class = "text-danger" })
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.XCoordinate, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.XCoordinate, new { htmlAttributes = new { @class = "form-control", type = "number", step = "any", required = "required", min = "-99", max = "99" } })
+                    @Html.ValidationMessageFor(model => model.XCoordinate, "", new { @class = "form-text" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.YCoordinate, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.YCoordinate, new { htmlAttributes = new { @class = "form-control", type = "number", step = "any", required = "required", min = "-99", max = "99" } })
+                    @Html.ValidationMessageFor(model => model.YCoordinate, "", new { @class = "form-text" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.TimeStamp, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.TimeStamp, new { htmlAttributes = new { @class = "form-control", type = "date", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.TimeStamp, "", new { @class = "form-text" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", maxlength = "2500" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "form-text" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", maxlength = "255" } })
+                    @Html.ValidationMessageFor(model => model.Location, "", new { @class = "form-text" })
+                </div>
+
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.County, htmlAttributes: new { @class = "form-label" })
+                    @Html.EditorFor(model => model.County, new { htmlAttributes = new { @class = "form-control", maxlength = "50", pattern = "[a-zA-Z ]*", title = "Only letters are allowed." } })
+                    @Html.ValidationMessageFor(model => model.County, "", new { @class = "form-text" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div id="map" style="height: 600px;"></div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.XCoordinate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.XCoordinate, new { htmlAttributes = new { @class = "form-control", type = "number", step = "any", required = "required", min = "-99", max = "99" } })
-                @Html.ValidationMessageFor(model => model.XCoordinate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.YCoordinate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.YCoordinate, new { htmlAttributes = new { @class = "form-control", type = "number", step = "any", required = "required", min = "-99", max = "99" } })
-                @Html.ValidationMessageFor(model => model.YCoordinate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TimeStamp, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TimeStamp, new { htmlAttributes = new { @class = "form-control", type = "date", required = "required" } })
-                @Html.ValidationMessageFor(model => model.TimeStamp, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", maxlength = "2500" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control", maxlength = "255" } })
-                @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.County, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.County, new { htmlAttributes = new { @class = "form-control", maxlength = "50", pattern = "[a-zA-Z ]*", title = "Only letters are allowed." } })
-                @Html.ValidationMessageFor(model => model.County, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+        <button type="submit" value="Save" class="btn btn-primary">Create</button>
+    </div>
+    <div class="mt-3">
+        @Html.ActionLink("Back to Sightings", "SightingsIndex")
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to Sightings", "SightingsIndex")
-</div>
-
-<div id="map" style="height: 400px; width: 400px;"></div>
 
 <script>
     var currentLat = parseFloat(@Html.Raw(Json.Encode(Model.XCoordinate)));

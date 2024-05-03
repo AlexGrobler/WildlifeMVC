@@ -3,16 +3,16 @@
 @{
     ViewBag.Title = "CreateSighting";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Header = "Record A Sighting";
+    ViewBag.Description = "Please give as much detail as possible";
 }
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-   
 <div class="container">
-    <h2>Record Sighting</h2>
+    <hr />
     <div class="row">
         <div class="col-md-6">
             <div class="mb-3">

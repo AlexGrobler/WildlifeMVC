@@ -3,13 +3,11 @@
 @{
     ViewBag.Title = "DeleteSighting";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Header = "Delete Sighting";
 }
 
-<h2>Delete Sighting</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3 class="text-danger">Are you sure you want to delete this sighting?</h3>
 <div>
-    <h4>Species</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -74,9 +72,9 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to Species", "SightingsIndex")
+        <div>
+            <button type="submit" value="Delete" class="btn btn-danger">Delete</button> |
+            <a class="link-secondary" href="@Url.Action("SightingsIndex")">Back to Sightings</a>
         </div>
     }
 </div>

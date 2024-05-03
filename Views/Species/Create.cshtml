@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Header = "Add A Species";
 }
 
 
@@ -12,9 +13,7 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { })
 <div class="container">
-
-    <h1>Add A Species</h1>
-
+    <hr />
     <div class="mb-3">
         @Html.LabelFor(model => model.EnglishName, htmlAttributes: new { @class = "form-label" })
         @Html.EditorFor(model => model.EnglishName, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = "255", pattern = "[a-zA-Z ]*", title = "Only letters are allowed." } })

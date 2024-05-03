@@ -8,39 +8,44 @@
 }
 
 
-<a href="@Url.Action("Create")" class="btn btn-outline-secondary">Create New Entry</a>
+<div class="container">
+    <a href="@Url.Action("Create")" class="btn btn-outline-primary mb-3" style="font-weight: bold;">Create New Entry</a>
+    <table class="table table-hover table-light">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EnglishName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LatinName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShortDescription)
+            </th>
+            <th></th>
+        </tr>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.EnglishName) 
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LatinName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ShortDescription)
-        </th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EnglishName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LatinName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShortDescription)
+                </td>
+                <td>
+                    <a class="link-primary" href="@Url.Action("Edit",  new { name = item.EnglishName.Replace(" ", "-"), id = item.ID })">Edit |</a>
+                    <a class="link-primary" href="@Url.Action("Details",  new { name = item.EnglishName.Replace(" ", "-"), id = item.ID })">Details |</a>
+                    <a class="link-primary" href="@Url.Action("Delete",  new { name = item.EnglishName.Replace(" ", "-"), id = item.ID })">Delete</a>
+                </td>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.EnglishName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LatinName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ShortDescription)
-        </td>
-        <td>
-            <a class="link-primary" href="@Url.Action("Edit",  new { name = item.EnglishName.Replace(" ", "-"), id = item.ID })">Edit</a>
-            <a class="link-primary" href="@Url.Action("Details",  new { name = item.EnglishName.Replace(" ", "-"), id = item.ID })">Details</a>
-            <a class="link-primary" href="@Url.Action("Delete",  new { name = item.EnglishName.Replace(" ", "-"), id = item.ID })">Delete</a>
-        </td>
+            </tr>
+        }
 
-    </tr>
-}
+    </table>
 
-</table>
+</div>
+
