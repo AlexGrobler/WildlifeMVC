@@ -35,7 +35,7 @@ namespace WildlifeMVC.Controllers
             }
         }
 
-        private async Task<HttpResponseMessage> getHttpResponse(string target)
+        public async Task<HttpResponseMessage> GetHttpResponse(string target)
         {
             using (HttpClient httpClient = new HttpClient())
             {
@@ -59,7 +59,7 @@ namespace WildlifeMVC.Controllers
         {
             using (HttpClient httpClient = new HttpClient())
             {
-                HttpResponseMessage response = await getHttpResponse($"BySighting/{id}");
+                HttpResponseMessage response = await GetHttpResponse($"BySighting/{id}");
                 SightingAPIModel apiData = await response.Content.ReadAsAsync<SightingAPIModel>();
                 if (response.IsSuccessStatusCode)
                 {
@@ -67,7 +67,7 @@ namespace WildlifeMVC.Controllers
                 }
                 else
                 {
-                    throw new HttpException(404, "No sighting found with that ID");
+                    throw new HttpException(404, "Resource Not Found");
                 }
             }
         }
@@ -79,7 +79,7 @@ namespace WildlifeMVC.Controllers
             using (HttpClient httpClient = new HttpClient())
             {
                 IEnumerable<SightingAPIModel> apiData = new List<SightingAPIModel>();
-                HttpResponseMessage response = await getHttpResponse("All");
+                HttpResponseMessage response = await GetHttpResponse("All");
                 apiData = await response.Content.ReadAsAsync<IEnumerable<SightingAPIModel>>();
 
                 if (response.IsSuccessStatusCode)
@@ -112,7 +112,7 @@ namespace WildlifeMVC.Controllers
                 }
                 else
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    throw new HttpException(400, "Bad Request");
                 }
             }
         }
@@ -123,12 +123,12 @@ namespace WildlifeMVC.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new HttpException(400, "Bad Request");
             }
             SightingAPIModel sighting = await GetSightingByID((int)id);
             if (sighting == null)
             {
-                return HttpNotFound();
+                throw new HttpException(404, "Resource Not Found");
             }
 
             string speciesName = await GetSpeciesNameByID(sighting.SpeciesID);
@@ -196,7 +196,7 @@ namespace WildlifeMVC.Controllers
                 }
                 else
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    throw new HttpException(400, "Bad Request");
                 }
             }
         }
@@ -207,7 +207,7 @@ namespace WildlifeMVC.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new HttpException(400, "Bad Request");
             }
             SightingAPIModel sighting = await GetSightingByID((int)id);
             if (sighting == null)
@@ -241,19 +241,9 @@ namespace WildlifeMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> UpdateSighting([Bind(Include = "ID,SpeciesID,XCoordinate,YCoordinate,TimeStamp,Description,Location,County")] SightingViewModel sightingViewModel)
         {
-            //should instead return create view, and have the form display warnrings about invalid inputs
             if (!ModelState.IsValid)
             {
-                using (var db = new wildlife_DBEntities())
-                {
-                    sightingViewModel.SpeciesList = db.Species.Select(s => new SelectListItem
-                    {
-                        Value = s.ID.ToString(),
-                        Text = s.EnglishName
-                    }).ToList();
-                }
-                return View(sightingViewModel);
-               /* throw new HttpException(400, "Update data was invalid");*/
+                throw new HttpException(400, "Bad Request");
             }
 
             using (HttpClient httpClient = new HttpClient())
@@ -278,7 +268,7 @@ namespace WildlifeMVC.Controllers
                 }
                 else
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    throw new HttpException(400, "Bad Request");
                 }
             }
         }
@@ -289,12 +279,12 @@ namespace WildlifeMVC.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new HttpException(400, "Bad Request");
             }
             SightingAPIModel sighting = await GetSightingByID((int)id);
             if (sighting == null)
             {
-                return HttpNotFound();
+                throw new HttpException(404, "Resource Not Found");
             }
 
             string speciesName = await GetSpeciesNameByID(sighting.SpeciesID);

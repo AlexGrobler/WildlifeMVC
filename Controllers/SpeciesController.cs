@@ -29,12 +29,12 @@ namespace WildlifeMVC.Controllers
         {
             if (name == null || id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new HttpException(400, "Bad Request");
             }
             Species species = await db.Species.FindAsync(id);
             if (species == null)
             {
-                return HttpNotFound();
+                throw new HttpException(404, "Resource Not Found");
             }
             return View(species);
         }
@@ -67,12 +67,13 @@ namespace WildlifeMVC.Controllers
             name = name.Replace("-", " ");
             if (id == null || name == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new HttpException(400, "Bad Request");
             }
             Species species = await db.Species.FindAsync(id);
             if (species == null)
             {
-                return HttpNotFound();
+                throw new HttpException(404, "Resource Not Found");
+                /* return HttpNotFound();*/
             }
             return View(species);
         }
@@ -97,12 +98,12 @@ namespace WildlifeMVC.Controllers
         {
             if (id == null || name == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new HttpException(400, "Bad Request");
             }
             Species species = await db.Species.FindAsync(id);
             if (species == null)
             {
-                return HttpNotFound();
+                throw new HttpException(404, "Resource Not Found");
             }
             return View(species);
         }
