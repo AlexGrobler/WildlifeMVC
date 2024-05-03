@@ -5,73 +5,56 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
 
-@using (Html.BeginForm()) 
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Species</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-       
-        <div class="form-group">
-            @Html.LabelFor(model => model.EnglishName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EnglishName, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = "255", pattern = "[a-zA-Z ]*", title = "Only letters are allowed." } })
-                @Html.ValidationMessageFor(model => model.EnglishName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    @Html.ValidationSummary(true, "", new { })
+<div class="container">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LatinName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LatinName, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = "255", pattern = "[a-zA-Z ]*", title = "Only letters are allowed." } })
-                @Html.ValidationMessageFor(model => model.LatinName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <h1>Add A Species</h1>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ShortDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ShortDescription, new { htmlAttributes = new { @class = "form-control" }, required = "required", maxlength = "500"})
-                @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LongDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LongDescription, new { htmlAttributes = new { @class = "form-control" }, required = "required", maxlength = "5000"})
-                @Html.ValidationMessageFor(model => model.LongDescription, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ImageURL, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ImageURL, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = "1000" } })
-                @Html.ValidationMessageFor(model => model.ImageURL, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.VideoURL, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.VideoURL, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = "1000" } })
-                @Html.ValidationMessageFor(model => model.VideoURL, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+    <div class="mb-3">
+        @Html.LabelFor(model => model.EnglishName, htmlAttributes: new { @class = "form-label" })
+        @Html.EditorFor(model => model.EnglishName, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = "255", pattern = "[a-zA-Z ]*", title = "Only letters are allowed." } })
+        @Html.ValidationMessageFor(model => model.EnglishName, "", new { @class = "form-text" })
     </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(model => model.LatinName, htmlAttributes: new { @class = "form-label" })
+        @Html.EditorFor(model => model.LatinName, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = "255", pattern = "[a-zA-Z ]*", title = "Only letters are allowed." } })
+        @Html.ValidationMessageFor(model => model.LatinName, "", new { @class = "form-text" })
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(model => model.ShortDescription, htmlAttributes: new { @class = "form-label" })
+        @Html.EditorFor(model => model.ShortDescription, new { htmlAttributes = new { @class = "form-control" }, required = "required", maxlength = "500" })
+        @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "form-text" })
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(model => model.LongDescription, htmlAttributes: new { @class = "form-label" })
+        @Html.EditorFor(model => model.LongDescription, new { htmlAttributes = new { @class = "form-control" }, required = "required", maxlength = "5000" })
+        @Html.ValidationMessageFor(model => model.LongDescription, "", new { @class = "form-text" })
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(model => model.ImageURL, htmlAttributes: new { @class = "form-label" })
+        @Html.EditorFor(model => model.ImageURL, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = "1000" } })
+        @Html.ValidationMessageFor(model => model.ImageURL, "", new { @class = "form-text" })
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(model => model.VideoURL, htmlAttributes: new { @class = "form-label" })
+        @Html.EditorFor(model => model.VideoURL, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = "1000" } })
+        @Html.ValidationMessageFor(model => model.VideoURL, "", new { @class = "form-text" })
+    </div>
+    <button type="submit" value="Create" class="btn btn-primary">Create</button>
+    <div class="mt-3">
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+</div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

@@ -64,6 +64,7 @@ namespace WildlifeMVC.Controllers
         [Route("Species/EditSpecies/{name}/{id}")]
         public async Task<ActionResult> Edit(string name, int? id)
         {
+            name = name.Replace("-", " ");
             if (id == null || name == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -92,9 +93,9 @@ namespace WildlifeMVC.Controllers
 
         [HttpGet]
         [Route("Species/DeleteSpecies/{name}/{id}")]
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete(string name, int? id)
         {
-            if (id == null)
+            if (id == null || name == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }

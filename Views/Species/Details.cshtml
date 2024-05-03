@@ -3,13 +3,11 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Header = "Species Info";
+    ViewBag.Description = "Information about the species";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Species</h4>
-    <hr />
+<div class="container">
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.EnglishName)
@@ -43,15 +41,15 @@
             @Html.DisplayFor(model => model.LongDescription)
         </dd>
     </dl>
-    <div>
-        <img src="@Url.Content(Model.ImageURL ?? "~/Content/fox.jpg")" alt="Image">
+    <div style="max-width: 100%; height: auto; width: 800px">
+        <img class="img-fluid" src="@Url.Content(Model.ImageURL ?? "~/Content/fox.jpg")" alt="Image">
     </div>
-    <div>
-        <iframe width="2543" height="1118" src="@Model.VideoURL" title="The Red Fox - The British Mammal Guide" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    
+    <div class="ratio ratio-16x9">
+        <iframe src="@Model.VideoURL" title="YouTube Video" allowfullscreen></iframe>
     </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { name = Model.EnglishName.Replace(" ", "-"), id = Model.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { name = HttpUtility.UrlEncode(Model.EnglishName), id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

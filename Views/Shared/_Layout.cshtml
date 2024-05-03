@@ -2,7 +2,7 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
@@ -10,21 +10,38 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin=""></script>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
     <title>Wildlife MVC</title>
 </head>
 <body>
-    <p>
-        @ViewBag.Description
-    </p>
-    <table>
-        <tr>
-            <td>@Html.ActionLink("Home", "HomePage", "Home") || </td>
-            <td>@Html.ActionLink("Species Index", "Index", "Species") || </td>
-            <td>@Html.ActionLink("Sightings", "SightingsIndex", "Sightings") </td>
-        </tr>
-    </table>
-    <div>
-        @RenderBody()
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="@Url.Action("HomePage", "Home")">Wildlife</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="@Url.Action("HomePage", "Home")">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="@Url.Action("Index", "Species")">Species</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="@Url.Action("SightingsIndex", "Sightings")">Sightings</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h2 class="mt-2">@ViewBag.Header</h2>
+        <p class="lead"> @ViewBag.Description</p>
+        <div>
+            @RenderBody()
+        </div>
     </div>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
 </body>
 </html>
