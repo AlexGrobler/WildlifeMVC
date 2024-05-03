@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WildlifeMVC.ViewModels.SightingDetailsViewModel>
+﻿@model IEnumerable<WildlifeMVC.Models.Species>
 
 @{
     ViewBag.Title = "HomePage";
@@ -10,75 +10,68 @@
 <div class="container" style="max-width: 1000px; padding-bottom:15px">
     <div id="carouselExampleFade" class="carousel slide carousel-fade mb-3" data-bs-ride="carousel">
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="@Url.Content("~/Content/hare.jpg")" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Placeholder 1</h5>
-                    <p>Some representative placeholder content for the second slide.</p>
+            @{
+                int index = 0;
+            }
+            @foreach (var item in Model)
+            {
+                string url = Url.Action("Details", "Species", new { name = "Fox", id = item.ID });
+                <div class="carousel-item @(index == 0 ? "active" : "")">
+                    <img src="@Url.Content(item.ImageURL ?? "~/Content/fox.jpg")" class="d-block w-100">
+                    <div class="carousel-caption d-none d-md-block">
+                        <a href="@url">
+                            <h5>@Html.DisplayFor(modelItem => item.EnglishName)</h5>
+                            <p> @Html.DisplayFor(modelItem => item.ShortDescription)</p>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="carousel-item">
-                <img src="@Url.Content("~/Content/puffin.jpg")" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Placeholder 2</h5>
-                    <p>Some representative placeholder content for the second slide.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="@Url.Content("~/Content/fox.jpg")" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Placeholder 3</h5>
-                    <p>Some representative placeholder content for the second slide.</p>
-                </div>
-            </div>
+                index++;
+            }
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
 
-
-    <div id="map" style="height: 600px;"></div>
+    @*<div id="map" style="height: 600px;"></div>*@
 
 </div>
 
+@*
+    <script>
+        var map = L.map('map').setView([53.29, -7.77], 6);
 
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+        }).addTo(map);
 
-
-<script>
-    var map = L.map('map').setView([53.29, -7.77], 6);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
-    }).addTo(map);
-
-    var sightings = @Html.Raw(Json.Encode(Model));
-    sightings.forEach(function(sighting) {
-        var lat = parseFloat(sighting.XCoordinate);
-        var lng = parseFloat(sighting.YCoordinate);
-        var marker = L.marker([lat, lng]).addTo(map);
-        var timestamp = parseInt(sighting.TimeStamp.substr(6));
-        var date = (new Date(timestamp)).toDateString();
-        var popupContent =
-            "<b>Species:</b> " + sighting.SpeciesName + "<br>" +
-            "<b>Location:</b> " + sighting.Location + "<br>" +
-            "<b>Date:</b> " + date + "<br>" +
-            "<b>Description:</b> " + sighting.Description;
-        marker.bindPopup(popupContent);
-        marker.on('mouseover', function (e) {
-            this.openPopup();
+        var sightings = @Html.Raw(Json.Encode(Model));
+        sightings.forEach(function(sighting) {
+            var lat = parseFloat(sighting.XCoordinate);
+            var lng = parseFloat(sighting.YCoordinate);
+            var marker = L.marker([lat, lng]).addTo(map);
+            var timestamp = parseInt(sighting.TimeStamp.substr(6));
+            var date = (new Date(timestamp)).toDateString();
+            var popupContent =
+                "<b>Species:</b> " + sighting.SpeciesName + "<br>" +
+                "<b>Location:</b> " + sighting.Location + "<br>" +
+                "<b>Date:</b> " + date + "<br>" +
+                "<b>Description:</b> " + sighting.Description;
+            marker.bindPopup(popupContent);
+            marker.on('mouseover', function (e) {
+                this.openPopup();
+            });
+            marker.on('mouseout', function (e) {
+                this.closePopup();
+            });
+            marker.on('click', function (e) {
+                window.location.href = 'SightingInfo/' + sighting.ID;
+            });
         });
-        marker.on('mouseout', function (e) {
-            this.closePopup();
-        });
-        marker.on('click', function (e) {
-            window.location.href = 'SightingInfo/' + sighting.ID;
-        });
-    });
-</script>
+    </script>*@

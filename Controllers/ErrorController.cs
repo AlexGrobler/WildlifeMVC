@@ -10,20 +10,17 @@ namespace WildlifeMVC.Controllers
     {
         public ActionResult GenericError()
         {
-            ViewBag.ErrorDetails = "Generic";
             return View();
         }
 
         public ActionResult ErrorCode400()
         {
-            ViewBag.ErrorDetails = "400";
             Response.StatusCode = 400;
             return View();
         }
 
         public ActionResult ErrorCode404()
         {
-            ViewBag.ErrorDetails = "404";
             Response.StatusCode = 404;
             return View();
         }

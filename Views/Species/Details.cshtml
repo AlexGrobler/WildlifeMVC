@@ -48,14 +48,20 @@
             <div style="max-width: 100%; height: auto; width: 800px">
                 <img class="img-fluid rounded-top" src="@Url.Content(Model.ImageURL ?? "~/Content/fox.jpg")" alt="Image">
             </div>
-            <div class="ratio ratio-16x9">
-                <iframe class="rounded-bottom" src="@Model.VideoURL" title="YouTube Video" allowfullscreen></iframe>
-            </div>
+            @if (ViewBag.FallbackContent != null)
+            {
+                <div>@ViewBag.FallbackContent</div>
+            }
+            else
+            {
+                <div class="ratio ratio-16x9">
+                    <iframe class="rounded-bottom" src="@Model.VideoURL" title="YouTube Video" allowfullscreen"></iframe>
+                </div>
+            }
         </div>
     </div>
     <p>
         @Html.ActionLink("Edit", "Edit", new { name = Model.EnglishName.Replace(" ", "-"), id = Model.ID }) |
         @Html.ActionLink("Back to List", "Index")
     </p>
-
 </div>

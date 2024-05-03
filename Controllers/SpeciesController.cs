@@ -1,25 +1,50 @@
-﻿using System;
+﻿using Ninject.Planning.Targets;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using WildlifeMVC.Models;
+using WildlifeMVC.Services;
+using WildlifeMVC.ViewModels;
 
 namespace WildlifeMVC.Controllers
 {
     public class SpeciesController : Controller
     {
-        private wildlife_DBEntities db = new wildlife_DBEntities();
+        private readonly ISpeciesService speciesService;
+
+        public SpeciesController(ISpeciesService speciesService)
+        {
+            this.speciesService = speciesService;
+        }
+
+        public static async Task<bool> IsVideoAvailable(string videoUrl)
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                try
+                {
+                    var response = await httpClient.GetAsync(videoUrl);
+                    return response.IsSuccessStatusCode;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
 
         [HttpGet]
         [Route("Species")]
         public async Task<ActionResult> Index()
         {
-            List<Species> speciesList = await db.Species.ToListAsync();
+            List<Species> speciesList = await speciesService.GetAllSpecies();
             return View(speciesList);
         }
 
@@ -31,10 +56,15 @@ namespace WildlifeMVC.Controllers
             {
                 throw new HttpException(400, "Bad Request");
             }
-            Species species = await db.Species.FindAsync(id);
+            Species species = await speciesService.GetSpeciesByIdAsync((int)id);
             if (species == null)
             {
                 throw new HttpException(404, "Resource Not Found");
+            }
+            bool validEmbed = await IsVideoAvailable(species.ImageURL);
+            if (!validEmbed)
+            {
+                ViewBag.FallbackContent = "Video not available :(";
             }
             return View(species);
         }
@@ -50,32 +80,35 @@ namespace WildlifeMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "ID,EnglishName,LatinName,ShortDescription,LongDescription,ImageURL,VideoURL")] Species species)
         {
-            if (ModelState.IsValid)
+            using (var db = new wildlife_DBEntities())
             {
-                db.Species.Add(species);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    await speciesService.AddSpeciesAsync(species); 
+                    return RedirectToAction("Index");
+                }
+                return View(species);
             }
-
-            return View(species);
         }
 
         [HttpGet]
         [Route("Species/EditSpecies/{name}/{id}")]
         public async Task<ActionResult> Edit(string name, int? id)
         {
-            name = name.Replace("-", " ");
-            if (id == null || name == null)
+            using (var db = new wildlife_DBEntities())
             {
-                throw new HttpException(400, "Bad Request");
+                name = name.Replace("-", " ");
+                if (id == null || name == null)
+                {
+                    throw new HttpException(400, "Bad Request");
+                }
+                Species species = await speciesService.GetSpeciesByIdAsync((int)id);
+                if (species == null)
+                {
+                    throw new HttpException(404, "Resource Not Found");
+                }
+                return View(species);
             }
-            Species species = await db.Species.FindAsync(id);
-            if (species == null)
-            {
-                throw new HttpException(404, "Resource Not Found");
-                /* return HttpNotFound();*/
-            }
-            return View(species);
         }
 
         [HttpPost]
@@ -83,29 +116,34 @@ namespace WildlifeMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "ID,EnglishName,LatinName,ShortDescription,LongDescription,ImageURL,VideoURL")] Species species)
         {
-            if (ModelState.IsValid)
+            using (var db = new wildlife_DBEntities())
             {
-                db.Entry(species).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    await speciesService.UpdateSpeciesAsync(species);
+                    return RedirectToAction("Index");
+                }
+                return View(species);
             }
-            return View(species);
         }
 
         [HttpGet]
         [Route("Species/DeleteSpecies/{name}/{id}")]
         public async Task<ActionResult> Delete(string name, int? id)
         {
-            if (id == null || name == null)
+            using (var db = new wildlife_DBEntities())
             {
-                throw new HttpException(400, "Bad Request");
+                if (id == null || name == null)
+                {
+                    throw new HttpException(400, "Bad Request");
+                }
+                Species species = await speciesService.GetSpeciesByIdAsync((int)id);
+                if (species == null)
+                {
+                    throw new HttpException(404, "Resource Not Found");
+                }
+                return View(species);
             }
-            Species species = await db.Species.FindAsync(id);
-            if (species == null)
-            {
-                throw new HttpException(404, "Resource Not Found");
-            }
-            return View(species);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -113,19 +151,23 @@ namespace WildlifeMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Species species = await db.Species.FindAsync(id);
-            db.Species.Remove(species);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            using (var db = new wildlife_DBEntities())
+            {
+                await speciesService.DeleteSpeciesAsync(id);
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            using (var db = new wildlife_DBEntities())
             {
-                db.Dispose();
+                if (disposing)
+                {
+                    db.Dispose();
+                }
+                base.Dispose(disposing);
             }
-            base.Dispose(disposing);
         }
     }
 }

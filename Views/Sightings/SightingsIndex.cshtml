@@ -12,50 +12,53 @@
     <div class="row">
         <div class="col-md-6">
             <table class="table table-hover table-light">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.SpeciesName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.TimeStamp)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Location)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.County)
-                    </th>
-                    <th></th>
-                </tr>
-
-                @foreach (var item in Model)
-                {
+                <thead>
                     <tr>
-                        <td style="padding-right: 20px;">
-                            @Html.DisplayFor(modelItem => item.SpeciesName)
-                        </td>
-                        <td style="padding-right: 20px;">
-                            @Html.DisplayFor(modelItem => item.TimeStamp)
-                        </td>
-                        <td style="padding-right: 20px;">
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td style="padding-right: 20px;">
-                            @Html.DisplayFor(modelItem => item.Location)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.County)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "UpdateSighting", new { id = item.ID }) |
-                            @Html.ActionLink("Details", "SightingDetails", new { id = item.ID }) |
-                            @Html.ActionLink("Delete", "DeleteSighting", new { id = item.ID })
-                        </td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SpeciesName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TimeStamp)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Location)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.County)
+                        </th>
+                        <th></th>
                     </tr>
-                }
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SpeciesName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TimeStamp)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Location)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.County)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "UpdateSighting", new { id = item.ID }) |
+                                @Html.ActionLink("Details", "SightingDetails", new { id = item.ID }) |
+                                @Html.ActionLink("Delete", "DeleteSighting", new { id = item.ID })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
             </table>
         </div>
         <div class="col-md-6">
