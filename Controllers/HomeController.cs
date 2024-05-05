@@ -6,22 +6,29 @@ using System.Web;
 using System.Web.Mvc;
 using WildlifeMVC.Models;
 using WildlifeMVC.Services;
+using WildlifeMVC.ViewModels;
 
 namespace WildlifeMVC.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ISpeciesService speciesService;
+        private readonly ISightingService sightingsService;
 
-        public HomeController(ISpeciesService speciesService)
+        public HomeController(ISpeciesService species, ISightingService sightings)
         {
-            this.speciesService = speciesService;
+            speciesService = species;
+            sightingsService = sightings;
         }
 
         public async Task<ActionResult> HomePage()
         {
-            List<Species> speciesList = await speciesService.GetAllSpecies();
-            return View(speciesList);
+            HomeViewModel homeView = new HomeViewModel()
+            {
+                SpeciesList = await speciesService.GetAllSpecies(),
+                SightingsList = await sightingsService.GetAllSightings()
+            };
+            return View(homeView);
         }
     }
 }

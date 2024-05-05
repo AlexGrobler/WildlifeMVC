@@ -34,6 +34,8 @@ namespace YourProject
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<ISpeciesService>().To<SpeciesService>();
+            kernel.Bind<ISightingService>().To<SightingService>();
+
         }
     }
 }

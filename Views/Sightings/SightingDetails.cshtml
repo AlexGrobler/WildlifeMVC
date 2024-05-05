@@ -76,9 +76,9 @@
     </div>
 </div>
 <p>
-    @Html.ActionLink("Edit", "UpdateSighting", new { id = Model.ID }) |
-    @Html.ActionLink("Delete", "DeleteSighting", new { id = Model.ID }) |
-    @Html.ActionLink("Back to Sightings", "SightingsIndex")
+    <a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="@Url.Action("UpdateSighting",  new { id = Model.ID })">Edit |</a>
+    <a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="@Url.Action("DeleteSighting",  new { id = Model.ID })">Delete |</a>
+    <a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="@Url.Action("SightingsIndex")">Back to Sightings</a>
 </p>
 
 <script>

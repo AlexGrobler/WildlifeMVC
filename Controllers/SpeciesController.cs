@@ -12,6 +12,7 @@ using System.Web.Mvc;
 using WildlifeMVC.Models;
 using WildlifeMVC.Services;
 using WildlifeMVC.ViewModels;
+using static System.Net.WebRequestMethods;
 
 namespace WildlifeMVC.Controllers
 {
@@ -19,9 +20,9 @@ namespace WildlifeMVC.Controllers
     {
         private readonly ISpeciesService speciesService;
 
-        public SpeciesController(ISpeciesService speciesService)
+        public SpeciesController(ISpeciesService species)
         {
-            this.speciesService = speciesService;
+            speciesService = species;
         }
 
         public static async Task<bool> IsVideoAvailable(string videoUrl)
@@ -30,6 +31,8 @@ namespace WildlifeMVC.Controllers
             {
                 try
                 {
+                    //SPLIT STRING OF URL AT v=
+                    string googleAPI = "https://www.youtube.com/oembed?format=json&url=" + videoUrl;
                     var response = await httpClient.GetAsync(videoUrl);
                     return response.IsSuccessStatusCode;
                 }
@@ -61,7 +64,8 @@ namespace WildlifeMVC.Controllers
             {
                 throw new HttpException(404, "Resource Not Found");
             }
-            bool validEmbed = await IsVideoAvailable(species.ImageURL);
+
+            bool validEmbed = await IsVideoAvailable(species.VideoURL);
             if (!validEmbed)
             {
                 ViewBag.FallbackContent = "Video not available :(";

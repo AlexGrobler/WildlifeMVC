@@ -1,11 +1,14 @@
-﻿@model IEnumerable<WildlifeMVC.Models.Species>
+﻿@model WildlifeMVC.ViewModels.HomeViewModel
 
 @{
     ViewBag.Title = "HomePage";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Header = "Wildlife DB";
-    ViewBag.Description = "The place for wildlife info and sightings";
 }
+<h2 class="mt-2 brand-logo">
+    Wildlife DB
+    <i class="fa-solid fa-clover"></i>
+</h2>
+<p class="lead">The place for wildlife info and sightings</p>
 <hr />
 <div class="container" style="max-width: 1000px; padding-bottom:15px">
     <div id="carouselExampleFade" class="carousel slide carousel-fade mb-3" data-bs-ride="carousel">
@@ -13,16 +16,19 @@
             @{
                 int index = 0;
             }
-            @foreach (var item in Model)
+            @foreach (var item in Model.SpeciesList)
             {
                 string url = Url.Action("Details", "Species", new { name = "Fox", id = item.ID });
                 <div class="carousel-item @(index == 0 ? "active" : "")">
-                    <img src="@Url.Content(item.ImageURL ?? "~/Content/fox.jpg")" class="d-block w-100">
-                    <div class="carousel-caption d-none d-md-block">
-                        <a href="@url">
+                    <img src="@Url.Content(item.ImageURL ?? "~/Content/fox.jpg")" class="d-block w-100"  style="max-height: 600px;">
+                    <div class="carousel-caption d-none d-md-block" style="background-color: rgb(106, 119, 134, 0.50);">
+                        <a href="@url" class="link-light link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
                             <h5>@Html.DisplayFor(modelItem => item.EnglishName)</h5>
-                            <p> @Html.DisplayFor(modelItem => item.ShortDescription)</p>
                         </a>
+                        <p>
+                            @Html.DisplayFor(modelItem => item.ShortDescription)
+                            <a href="@url" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"> Click here to find out more.</a>
+                        </p>
                     </div>
                 </div>
                 index++;
@@ -38,40 +44,39 @@
         </div>
     </div>
 
-    @*<div id="map" style="height: 600px;"></div>*@
+    <div id="map" style="height: 600px;"></div>
 
 </div>
 
-@*
-    <script>
-        var map = L.map('map').setView([53.29, -7.77], 6);
+<script>
+    var map = L.map('map').setView([53.29, -7.77], 6);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
-        }).addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
-        var sightings = @Html.Raw(Json.Encode(Model));
-        sightings.forEach(function(sighting) {
-            var lat = parseFloat(sighting.XCoordinate);
-            var lng = parseFloat(sighting.YCoordinate);
-            var marker = L.marker([lat, lng]).addTo(map);
-            var timestamp = parseInt(sighting.TimeStamp.substr(6));
-            var date = (new Date(timestamp)).toDateString();
-            var popupContent =
-                "<b>Species:</b> " + sighting.SpeciesName + "<br>" +
-                "<b>Location:</b> " + sighting.Location + "<br>" +
-                "<b>Date:</b> " + date + "<br>" +
-                "<b>Description:</b> " + sighting.Description;
-            marker.bindPopup(popupContent);
-            marker.on('mouseover', function (e) {
-                this.openPopup();
-            });
-            marker.on('mouseout', function (e) {
-                this.closePopup();
-            });
-            marker.on('click', function (e) {
-                window.location.href = 'SightingInfo/' + sighting.ID;
-            });
+    var sightings = @Html.Raw(Json.Encode(Model));
+    sightings.SightingsList.forEach(function(sighting) {
+        var lat = parseFloat(sighting.XCoordinate);
+        var lng = parseFloat(sighting.YCoordinate);
+        var marker = L.marker([lat, lng]).addTo(map);
+        var timestamp = parseInt(sighting.TimeStamp.substr(6));
+        var date = (new Date(timestamp)).toDateString();
+        var popupContent =
+            "<b>Species:</b> " + sighting.SpeciesName + "<br>" +
+            "<b>Location:</b> " + sighting.Location + "<br>" +
+            "<b>Date:</b> " + date + "<br>" +
+            "<b>Description:</b> " + sighting.Description;
+        marker.bindPopup(popupContent);
+        marker.on('mouseover', function (e) {
+            this.openPopup();
         });
-    </script>*@
+        marker.on('mouseout', function (e) {
+            this.closePopup();
+        });
+        marker.on('click', function (e) {
+            window.location.href = 'Sightings/SightingInfo/' + sighting.ID;
+        });
+    });
+</script>

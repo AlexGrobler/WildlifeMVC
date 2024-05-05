@@ -6,7 +6,7 @@
     ViewBag.Header = "Species Info";
     ViewBag.Description = "Information about the species";
 }
-
+<hr />
 <div class="container rounded" style="background-color: #f5fcff; padding: 20px;">
     <div class="row">
         <div class="col-md-6">
@@ -25,14 +25,6 @@
 
                 <dd>
                     @Html.DisplayFor(model => model.LatinName)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.ShortDescription)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.ShortDescription)
                 </dd>
 
                 <dt>
@@ -61,7 +53,7 @@
         </div>
     </div>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { name = Model.EnglishName.Replace(" ", "-"), id = Model.ID }) |
-        @Html.ActionLink("Back to List", "Index")
+        <a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="@Url.Action("Edit",  new { name = Model.EnglishName.Replace(" ", "-"), id = Model.ID })">Edit |</a>
+        <a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="@Url.Action("Index")">Back to List</a>
     </p>
 </div>

@@ -10,7 +10,7 @@
 <a href="@Url.Action("CreateSighting")" class="btn btn-outline-success mb-3" style="font-weight: bold;">Record New Sighting</a>
 <div class="full-width-content" style="padding: 20px;">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 me-5">
             <table class="table table-hover table-light">
                 <thead>
                     <tr>
@@ -19,9 +19,6 @@
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.TimeStamp)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Description)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Location)
@@ -43,25 +40,22 @@
                                 @Html.DisplayFor(modelItem => item.TimeStamp)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Description)
-                            </td>
-                            <td>
                                 @Html.DisplayFor(modelItem => item.Location)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.County)
                             </td>
                             <td>
-                                @Html.ActionLink("Edit", "UpdateSighting", new { id = item.ID }) |
-                                @Html.ActionLink("Details", "SightingDetails", new { id = item.ID }) |
-                                @Html.ActionLink("Delete", "DeleteSighting", new { id = item.ID })
+                                <a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="@Url.Action("UpdateSighting",  new { id = item.ID })">Edit |</a>
+                                <a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="@Url.Action("SightingDetails",  new { id = item.ID })">Details |</a>
+                                <a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="@Url.Action("DeleteSighting",  new {id = item.ID })">Delete</a>
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div id="map" style="height: 600px;"></div>
         </div>
     </div>

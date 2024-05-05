@@ -55,7 +55,7 @@
 
                 <div class="mb-3">
                     @Html.LabelFor(model => model.County, htmlAttributes: new { @class = "form-label" })
-                    @Html.EditorFor(model => model.County, new { htmlAttributes = new { @class = "form-control", maxlength = "50", pattern = "[a-zA-Z ]*", title = "Only letters are allowed." } })
+                    @Html.DropDownListFor(model => model.County, (SelectList)ViewBag.Counties, "Select a County", new { @class = "form-control", required = "required" })
                     @Html.ValidationMessageFor(model => model.County, "", new { @class = "form-text" })
                 </div>
             </div>
@@ -63,10 +63,10 @@
                 <div id="map" style="height: 600px;"></div>
             </div>
         </div>
-        <button type="submit" value="Save" class="btn btn-primary">Create</button>
     </div>
     <div class="mt-3">
-        @Html.ActionLink("Back to Sightings", "SightingsIndex")
+        <button type="submit" value="Save" class="btn btn-primary">Save</button> |
+        <a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="@Url.Action("SightingsIndex")">Back to Sightings</a>
     </div>
 }
 

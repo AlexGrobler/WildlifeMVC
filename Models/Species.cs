@@ -20,9 +20,9 @@ namespace WildlifeMVC.Models
         public string EnglishName { get; set; }
         [Display(Name = "Latin Name")]
         public string LatinName { get; set; }
-        [Display(Name = "Short Description")]
+        [Display(Name = "Summary")]
         public string ShortDescription { get; set; }
-        [Display(Name = "Long Description")]
+        [Display(Name = "Description")]
         public string LongDescription { get; set; }
         public string ImageURL { get; set; }
         public string VideoURL { get; set; }
