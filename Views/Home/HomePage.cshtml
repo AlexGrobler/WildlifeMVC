@@ -86,7 +86,9 @@
 
         //when clicking on marker, navigate to the sighting using the id from the marker's data
         marker.on('click', function (e) {
-            window.location.href = 'Sightings/SightingInfo/' + sighting.ID;
+            let baseUrl = '@Url.Action("SightingInfo", "Sightings", new { id = "placeHolderID" })'; //first get the URL using Razor, so I can avoid hard-coding the URL as a js string.
+            let targetUrl = baseUrl.replace('placeHolderID', sighting.ID); //replace placeholder with our js-derived ID
+            window.location.href = targetUrl; //navigate to sighting
         });
     });
 </script>
