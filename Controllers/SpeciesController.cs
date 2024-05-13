@@ -20,18 +20,19 @@ namespace WildlifeMVC.Controllers
     {
         private readonly ISpeciesService speciesService;
 
+        //uses Ninject dependency injection to insantiate the service layer
         public SpeciesController(ISpeciesService species)
         {
             speciesService = species;
         }
 
+        //check if the youtube URL reterieved from the db is valid
         public static async Task<bool> IsVideoAvailable(string videoUrl)
         {
             using (HttpClient httpClient = new HttpClient())
             {
                 try
                 {
-                    //SPLIT STRING OF URL AT v=
                     string googleAPI = "https://www.youtube.com/oembed?format=json&url=" + videoUrl;
                     var response = await httpClient.GetAsync(videoUrl);
                     return response.IsSuccessStatusCode;
@@ -43,6 +44,7 @@ namespace WildlifeMVC.Controllers
             }
         }
 
+        //async tasks are better for performance, as other tasks can run while waiting for a response from the API
         [HttpGet]
         [Route("Species")]
         public async Task<ActionResult> Index()
@@ -52,7 +54,7 @@ namespace WildlifeMVC.Controllers
         }
 
         [HttpGet]
-        [Route("Species/Info/{name}/{id}")]
+        [Route("Species/Info/{name}/{id}")] //custom routes with species name and ID in the URL
         public async Task<ActionResult> Details(string name, int? id)
         {
             if (name == null || id == null)
@@ -65,6 +67,7 @@ namespace WildlifeMVC.Controllers
                 throw new HttpException(404, "Resource Not Found");
             }
 
+            //check if URL is valid, if not display a message to inform the user
             bool validEmbed = await IsVideoAvailable(species.VideoURL);
             if (!validEmbed)
             {

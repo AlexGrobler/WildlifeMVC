@@ -8,6 +8,7 @@ using WildlifeMVC.Models;
 
 namespace WildlifeMVC.Services
 {
+    //interface is required for registering dependencies which will be injected into the controller classes
     public interface ISpeciesService
     {
         Task<Species> GetSpeciesByIdAsync(int id);
@@ -17,6 +18,7 @@ namespace WildlifeMVC.Services
         Task DeleteSpeciesAsync(int id);
     }
 
+    //service players allow for resuable code that can be used between multiple views, like in the home controller
     public class SpeciesService : ISpeciesService
     {
         private readonly wildlife_DBEntities dbContext;

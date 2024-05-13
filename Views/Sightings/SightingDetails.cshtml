@@ -82,15 +82,21 @@
 </p>
 
 <script>
-    var currentLat = parseFloat(@Html.Raw(Json.Encode(Model.XCoordinate)));
-    var currentLng = parseFloat(@Html.Raw(Json.Encode(Model.YCoordinate)));
+    //using the Leaflet library to create an interactive map for sightings
 
-    var map = L.map('map').setView([currentLat, currentLng], 7);
+    //get lat and long from model data
+    let currentLat = parseFloat(@Model.XCoordinate);
+    let currentLng = parseFloat(@Model.YCoordinate);
 
+    //set map view to marker location
+    let map = L.map('map').setView([currentLat, currentLng], 7);
+
+    //get map layer from OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    var marker = L.marker([currentLat, currentLng]).addTo(map);
+    //instantiate marker with lat and long taken from model
+    let marker = L.marker([currentLat, currentLng]).addTo(map);
 </script>

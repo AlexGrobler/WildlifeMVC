@@ -8,6 +8,8 @@ namespace WildlifeMVC.Controllers
 {
     public class ErrorController : Controller
     {
+        //handle the the custom error views
+
         public ActionResult GenericError()
         {
             return View();

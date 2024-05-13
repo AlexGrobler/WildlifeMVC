@@ -70,29 +70,64 @@
 }
 
 <script>
-    var map = L.map('map').setView([53.4, -7.62451], 7);
+    //using the Leaflet library to create an interactive map for sightings
 
+    //set default map view location on load
+    let map = L.map('map').setView([53.4, -7.62451], 7);
+
+    //get map layer from OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    var marker;
+    let marker; //placeholder for map marker
 
+    //add on-click event to map, as per Leaflet documentation
     map.on('click', function (e) {
-        var lat = e.latlng.lat;
-        var lng = e.latlng.lng;
+        //get the latitude and longitude of the click
+        let lat = e.latlng.lat;
+        let lng = e.latlng.lng;
 
-        // Populate the coordinate fields
+        //update the form values
         document.getElementById('XCoordinate').value = lat.toFixed(5);
         document.getElementById('YCoordinate').value = lng.toFixed(5);
 
         if (marker) {
-            // Move the existing marker to the new location
+            // if marker exists, move to new location that was clicked on
             marker.setLatLng(e.latlng);
         } else {
-            // Create a new marker and add it to the map
+            // instatiate a marker if none exists yet and move to new location
             marker = L.marker(e.latlng).addTo(map);
         }
     });
+
+    //update the marker's position if a user manually enters the cooridantes into the form inputs
+    //using even listener
+    let latInput = document.getElementById('XCoordinate');
+    let longInput = document.getElementById('YCoordinate');
+
+    latInput.addEventListener('change', function () {
+        handleInputChange();
+    });
+
+    longInput.addEventListener('change', function () {
+        handleInputChange();
+    });
+
+    function handleInputChange() {
+        let lat = latInput.value;
+        let lng = longInput.value;
+        let newLatLang = new L.LatLng(lat, lng); //create a new latlng object, as per leaflet docs
+
+        if (marker) {
+            //set coords if marker exists
+            marker.setLatLng(newLatLang);
+        }
+        else {
+            //instantiate marker if none exists
+            marker = L.marker(newLatLang).addTo(map);
+        }
+    }
+
 </script>

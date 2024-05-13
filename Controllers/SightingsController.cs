@@ -18,6 +18,7 @@ namespace WildlifeMVC.Controllers
 {
     public class SightingsController : Controller
     {
+        //list of Irish counties needed for our forms
        public static List<string> CountiesList = new List<string>
         {   "Antrim",
     "Armagh",
@@ -54,16 +55,18 @@ namespace WildlifeMVC.Controllers
 
         private readonly ISightingService sightingsService;
 
+        //uses Ninject dependency injection to insantiate the service layer
         public SightingsController(ISightingService sightings)
         {
             sightingsService = sightings;
         }
 
+        //async tasks are better for performance, as other tasks can run while waiting for a response from the API
         [HttpGet]
         [Route("Sightings/SightingsList")]
         public async Task<ActionResult> SightingsIndex()
         {
-            return View(await sightingsService.GetAllSightings());
+            return View(await sightingsService.GetAllSightings()); //we get our data from the service layer, allowing for resuable code
         }
 
         [HttpGet]
@@ -79,7 +82,7 @@ namespace WildlifeMVC.Controllers
         {
             using (var db = new wildlife_DBEntities())
             {
-                ViewBag.Counties = new SelectList(CountiesList);
+                ViewBag.Counties = new SelectList(CountiesList); //use a viewbag to hold our list of valid Irish counties for the form
                 SightingViewModel viewModel = await sightingsService.GetSpeciesDropDownData();
                 return View(viewModel);
             }
@@ -90,7 +93,7 @@ namespace WildlifeMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateSighting(SightingViewModel sightingViewModel)
         {
-            //should instead return create view, and have the form display warnrings about invalid inputs
+
             if (!ModelState.IsValid)
             {
                 throw new HttpException(400, "Form data was invalid");

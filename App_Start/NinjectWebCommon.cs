@@ -8,6 +8,8 @@ using WildlifeMVC.Services;
 
 namespace YourProject
 {
+    //Ninject is a library which enables dependency injection for old ASP .NET framwork versions, DI is native to ASP.NET Core
+    //DI and service layers are considered the standard approach to handling db and API calls
     public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
